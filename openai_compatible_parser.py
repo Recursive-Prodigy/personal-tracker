@@ -1,31 +1,23 @@
-import os
 import requests
 import json
-from dotenv import load_dotenv
 from prompts import build_extraction_prompt
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-
-def parse_entry(text):
-    url = "https://api.openai.com/v1/chat/completions"
-
+def parse_entry(text, base_url, api_key, model):
     headers = {
-        "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
 
     payload = {
-        "model": "gpt-4",
+        "model": model,
         "messages": [
             {"role": "user", "content": build_extraction_prompt(text)}
         ]
     }
 
-    response = requests.post(url, headers=headers, json=payload)
+    response = requests.post(base_url, headers=headers, json=payload)
 
-# Temporary line for status check can be added here
     response.raise_for_status()
 
     data = response.json()
@@ -33,3 +25,5 @@ def parse_entry(text):
     reply_text = reply_text.replace("```json", "").replace("```", "").strip()
 
     return json.loads(reply_text)
+
+# This means other four new apis im about to add share same structure as open ai style of layout so we set this as a common spawn point

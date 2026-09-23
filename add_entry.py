@@ -6,13 +6,18 @@ from database import insert_entry
 
 # ----- Main program -----
 
-user_input = input("What do you want to track? ")
+while True:
+    user_input = input("What are we tracking today sire?")
 
-entry = parse_entry(user_input)
+    if user_input.strip() == "":
+        print("All noted, Have an awesome day/night! Exiting now.")
+        break
 
-entry = insert_entry(entry)
+    entry = parse_entry(user_input)
 
-print("Final entry:")
-print(json.dumps(entry, indent=2))
+    print("Final entry:")
+    print(json.dumps(entry, indent=2))
 
-print(f"Added to {entry['type']} successfully :D")
+    insert_entry(entry)
+
+    print(f"Added to {entry['type']} successfully :D")

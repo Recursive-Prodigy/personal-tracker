@@ -4,7 +4,7 @@ import json
 from dotenv import load_dotenv
 from prompts import build_extraction_prompt
 
-load_dotenv()
+load_dotenv(override=True)
 CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
 
 
