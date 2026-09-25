@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import date
 
+#This is for menu and data storing when you ran analytics.py
 def list_books():
     conn = sqlite3.connect("tracker.db")
     cursor = conn.cursor()
@@ -31,6 +32,15 @@ def delete_books(book_ids):
 
     placeholders = ",".join("?" for _ in book_ids)
     cursor.execute(f"DELETE FROM book_purchases WHERE id IN ({placeholders})", book_ids)
+
+    conn.commit()
+    conn.close()
+
+def delete_all_books():
+    conn=sqlite3.connect("tracker.db")
+    cursor=conn.cursor()
+
+    cursor.execute("DELETE FROM book_purchases")
 
     conn.commit()
     conn.close()
@@ -109,3 +119,40 @@ def insert_entry(entry):
     conn.close()
 
     return entry
+
+#This is new section that is working as common functions and options for rest two menus in buy and to build list
+def list_entries(table, order_by="id"):
+    conn = sqlite3.connect("tracker.db")
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT * FROM {table} ORDER BY {order_by}")
+    columns = [desc[0] for desc in cursor.description]
+    rows = cursor.fetchall()
+    conn.close()
+    return columns, rows
+
+
+def delete_entries(table, ids):
+    conn = sqlite3.connect("tracker.db")
+    cursor = conn.cursor()
+    placeholders = ",".join("?" for _ in ids)
+    cursor.execute(f"DELETE FROM {table} WHERE id IN ({placeholders})", ids)
+    conn.commit()
+    conn.close()
+
+
+def delete_all_entries(table):
+    conn = sqlite3.connect("tracker.db")
+    cursor = conn.cursor()
+    cursor.execute(f"DELETE FROM {table}")
+    conn.commit()
+    conn.close()
+
+
+def update_entry_field(table, entry_id, field, new_value, allowed_fields):
+    if field not in allowed_fields:
+        raise ValueError(f"Cannot update field: {field}")
+    conn = sqlite3.connect("tracker.db")
+    cursor = conn.cursor()
+    cursor.execute(f"UPDATE {table} SET {field} = ? WHERE id = ?", (new_value, entry_id))
+    conn.commit()
+    conn.close()

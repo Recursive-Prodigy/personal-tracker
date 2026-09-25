@@ -1,29 +1,24 @@
-1] Basic database design (with 3 types/sections) using python and sql lite
-2] entry/input parameters code
-3] api calls and testing
-4] separation + setup of multiple api models + swappable omni parser to toggle models
-5] saving api key in environment holder instead of directly in code
-6] api to convert currency into usd + try catch block to prevent code crash when internet is unavailable during conversion
-7] ability to edit, update and delete data from data base + cancelling when you enter a mode accidentally (eg. starting delete but having nothing to delete in list can be escaped without crashing program) + invalid/null as outputs when wrong data is entered 
-8] Auto swapping ability for models to prevent lock in with one model during inputs
+1) Basic database design — 3-section SQLite database using Python and SQL
+2) Input/entry parameter handling — structured natural-language input extraction
+3) API integration and testing — external LLM API calls and response testing
+4) Multi-model architecture — separated API adapters with a swappable omni-parser
+5) Environment-based secret management — API keys moved from source code into environment variables
+6) Currency conversion + fault tolerance — API-based INR→USD conversion with exception handling for network/API failures
+7) Database CRUD + input validation — edit/update/delete operations, cancellation paths, and invalid/null input handling
+8) Automatic model fallback — provider switching to reduce dependency on a single LLM
+9) Extended CRUD + destructive-action confirmation — CRUD for additional lists and confirmation-gated “clear all” functionality
+10) Configuration-driven category system — user-defined categories, JSON schema configuration, and dynamic SQLite table creation
 
-
+RESUME at category-config.py
 
 Additions:
 MCP Server
-proper modular Python structure
-SQLite schema/design
-API abstraction
-multiple interchangeable model implementations
-centralized parser/interface
-environment-based secrets
-exception handling
-API testing
-input validation
-clean separation of concerns
+
 
 Sites (for help, trust me u need this cause some sections are annoying):
 https://aistudio.google.com/docs/api-key
+https://mermaid-live-editor.com/
+https://aistudio.google.com/
 
 
 the actual architecture sounds more like:

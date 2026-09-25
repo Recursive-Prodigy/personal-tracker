@@ -1,0 +1,43 @@
+{
+  "book_purchase": {
+    "table": "book_purchases",
+    "description": "a book the user has already bought",
+    "fields": [
+      {"name": "title", "type": "TEXT", "nullable": false},
+      {"name": "author", "type": "TEXT", "nullable": true},
+      {"name": "price", "type": "REAL", "nullable": false},
+      {"name": "date_purchased", "type": "TEXT", "nullable": true},
+      {"name": "category", "type": "TEXT", "nullable": true},
+      {"name": "format", "type": "TEXT", "nullable": true}
+    ],
+    "label_fields": ["title", "price", "date_purchased"],
+    "extra_rules": ["For book purchases, if no purchase date is mentioned, use null."]
+  },
+  "buy_list": {
+    "table": "buy_list",
+    "description": "something the user wants to buy",
+    "fields": [
+      {"name": "item", "type": "TEXT", "nullable": false},
+      {"name": "category", "type": "TEXT", "nullable": true},
+      {"name": "est_price", "type": "REAL", "nullable": true},
+      {"name": "priority", "type": "TEXT", "nullable": false, "default": "medium"},
+      {"name": "status", "type": "TEXT", "nullable": false, "default": "pending"},
+      {"name": "date_added", "type": "TEXT", "nullable": false, "default": "today"}
+    ],
+    "label_fields": ["item", "priority", "status"],
+    "extra_rules": ["Buy list priority must be high, medium, or low."]
+  },
+  "build_list": {
+    "table": "build_list",
+    "description": "something the user wants to build or make",
+    "fields": [
+      {"name": "name", "type": "TEXT", "nullable": false},
+      {"name": "description", "type": "TEXT", "nullable": true},
+      {"name": "status", "type": "TEXT", "nullable": false, "default": "idea"},
+      {"name": "date_added", "type": "TEXT", "nullable": false, "default": "today"},
+      {"name": "date_updated", "type": "TEXT", "nullable": false, "default": "today"}
+    ],
+    "label_fields": ["name", "status"],
+    "extra_rules": ["Build list status must be idea, in progress, done, or abandoned."]
+  }
+}
